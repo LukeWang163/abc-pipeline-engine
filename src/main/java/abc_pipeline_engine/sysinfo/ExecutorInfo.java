@@ -12,7 +12,7 @@ public class ExecutorInfo implements java.io.Serializable {
     private long remainingMemoryInMB;
 //    private int remainingFlowCapacity;
 //    private int numberOfAssignedFlows;
-    private long lastDispatchedTime;
+//    private long lastDispatchedTime;
     private double cpuUsage;
 
     public ExecutorInfo() {
@@ -20,15 +20,15 @@ public class ExecutorInfo implements java.io.Serializable {
 
     public ExecutorInfo(final double remainingMemoryPercent,
                         final long remainingMemory,
-                        final int remainingFlowCapacity,
-                        final long lastDispatched,
-                        final double cpuUsage,
-                        final int numberOfAssignedFlows) {
+//                        final int remainingFlowCapacity,
+//                        final long lastDispatched,
+                        final double cpuUsage) {
+//                        final int numberOfAssignedFlows) {
         this.remainingMemoryInMB = remainingMemory;
         this.cpuUsage = cpuUsage;
 //        this.remainingFlowCapacity = remainingFlowCapacity;
         this.remainingMemoryPercent = remainingMemoryPercent;
-        this.lastDispatchedTime = lastDispatched;
+//        this.lastDispatchedTime = lastDispatched;
 //        this.numberOfAssignedFlows = numberOfAssignedFlows;
     }
 
@@ -64,13 +64,13 @@ public class ExecutorInfo implements java.io.Serializable {
 //        this.remainingFlowCapacity = value;
 //    }
 
-    public long getLastDispatchedTime() {
-        return this.lastDispatchedTime;
-    }
+//    public long getLastDispatchedTime() {
+//        return this.lastDispatchedTime;
+//    }
 
-    public void setLastDispatchedTime(final long value) {
-        this.lastDispatchedTime = value;
-    }
+//    public void setLastDispatchedTime(final long value) {
+//        this.lastDispatchedTime = value;
+//    }
 
 //    public int getNumberOfAssignedFlows() {
 //        return this.numberOfAssignedFlows;
@@ -89,7 +89,7 @@ public class ExecutorInfo implements java.io.Serializable {
         result = 31 * result + (int) (this.remainingMemoryInMB ^ (this.remainingMemoryInMB >>> 32));
 //        result = 31 * result + this.remainingFlowCapacity;
 //        result = 31 * result + this.numberOfAssignedFlows;
-        result = 31 * result + (int) (this.lastDispatchedTime ^ (this.lastDispatchedTime >>> 32));
+//        result = 31 * result + (int) (this.lastDispatchedTime ^ (this.lastDispatchedTime >>> 32));
         temp = Double.doubleToLongBits(this.cpuUsage);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
@@ -106,7 +106,7 @@ public class ExecutorInfo implements java.io.Serializable {
 //            result &= this.remainingFlowCapacity == stat.remainingFlowCapacity;
             result &= this.remainingMemoryPercent == stat.remainingMemoryPercent;
 //            result &= this.numberOfAssignedFlows == stat.numberOfAssignedFlows;
-            result &= this.lastDispatchedTime == stat.lastDispatchedTime;
+//            result &= this.lastDispatchedTime == stat.lastDispatchedTime;
             return result;
         }
         return false;
@@ -119,7 +119,7 @@ public class ExecutorInfo implements java.io.Serializable {
                 ", remainingMemoryInMB=" + this.remainingMemoryInMB +
 //                ", remainingFlowCapacity=" + this.remainingFlowCapacity +
 //                ", numberOfAssignedFlows=" + this.numberOfAssignedFlows +
-                ", lastDispatchedTime=" + this.lastDispatchedTime +
+//                ", lastDispatchedTime=" + this.lastDispatchedTime +
                 ", cpuUsage=" + this.cpuUsage +
                 '}';
     }
