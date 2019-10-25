@@ -25,7 +25,7 @@ import java.util.Map;
  * create time:  2019.09.25.
  * description:
  */
-public class IdswProcessListener<enableCache> implements ProcessStateListener {
+public class IdswProcessListener implements ProcessStateListener {
 	
 	public String processStatus = ExperimentConstants.EXP_STAUTS_KILLED;
 

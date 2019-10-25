@@ -123,6 +123,7 @@ public class PluginUtil {
 
 					//if (pluginNames.contains(pluginName) && (new File(fullPath)).exists()) {
 					//先不判断是否内置，后续需完善
+					// TODO: load from database
 					if ( (new File(fullPath)).exists()) {
 
 					} else {

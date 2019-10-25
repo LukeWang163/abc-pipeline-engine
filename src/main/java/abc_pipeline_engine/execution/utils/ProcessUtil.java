@@ -7,7 +7,6 @@ import base.operators.operator.Operator;
 import base.operators.tools.Observer;
 import base.operators.utils.PluginUtil;
 import org.jboss.netty.util.internal.ConcurrentHashMap;
-import org.loushang.framework.util.SpringContextHolder;
 
 import java.io.File;
 import java.util.Map;
@@ -59,7 +58,6 @@ public class ProcessUtil {
 			processTest.addProcessStateListener(processListener);
 			thread.setProcess(processTest);
 			thread.start();
-			//processTest.run();
 			thread.join();
 			processStatus = processListener.processStatus;
 		} catch (Exception e) {
