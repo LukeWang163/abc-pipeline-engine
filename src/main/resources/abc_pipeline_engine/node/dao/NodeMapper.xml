@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="abc_pipeline_engine.node.dao.NodeMapper">
+	<resultMap type="abc_pipeline_engine.node.data.Node" id="nodeMap">
+		<id property="id" column="id" />
+		<result property="operatorId" column="operator_id" />
+		<result property="params" column="params" />
+		<result property="x" column="x" />
+		<result property="y" column="y" />
+		<result property="text" column="text" />
+		<result property="inputs" column="inputs" />
+		<result property="outputs" column="outputs"/>
+		<result property="icon" column="icon" />
+		<result property="expId" column="exp_id"/>
+		<result property="log" column="node_log" />
+		<result property="origin" column="node_origin"/>
+		<result property="status" column="node_status"/>
+		<result property="isSubprocess" column="is_subprocess"/>
+		<result property="parentId" column="parent_id"/>
+		<result property="nodeGraph" column="node_graph"/>
+	</resultMap>
+	
+	<select id="getOne" parameterType="string" resultMap="nodeMap">
+	SELECT
+	  id,
+	  operator_id,
+	  params,
+	  x,
+	  y,
+	  text,
+	  inputs,
+	  outputs,
+	  icon,
+	  exp_id,
+	  node_log,
+	  node_origin,
+	  node_status,
+	  is_subprocess,
+	  parent_id,
+	  node_graph
+	FROM
+	  dsw_node
+	WHERE
+	  id = #{_parameter}
+	</select>
+	
+	<select id="queryByParam" parameterType="map" resultMap="nodeMap">
+	SELECT
+	  id,
+	  operator_id,
+	  params,
+	  x,
+	  y,
+	  text,
+	  inputs,
+	  outputs,
+	  icon,
+	  exp_id,
+	  node_log,
+	  node_origin,
+	  node_status,
+	  is_subprocess,
+	  parent_id,
+	  node_graph
+	FROM
+	  dsw_node
+	<where>
+	    <if test="expId != null and expId !='' ">
+	    AND exp_id = #{expId}
+	    </if>
+	    <if test="operatorId != null and operatorId !='' ">
+	    AND operator_id = #{operatorId}
+	    </if>	   
+	    <if test="parentId != null and parentId !='' ">
+	    AND parent_id = #{parentId}
+	    </if>	   
+	 </where>
+	</select>
+	
+	
+	<insert id="add" parameterType="abc_pipeline_engine.node.data.Node">
+	INSERT 
+	INTO
+	  dsw_node
+	(
+	  id,
+	  operator_id,
+	  params,
+	  x,
+	  y,
+	  text,
+	  inputs,
+	  outputs,
+	  icon,
+	  exp_id,
+	  node_log,
+	  node_origin,
+	  node_status,
+	  is_subprocess,
+	  parent_id,
+	  node_graph
+	) VALUES (
+	  #{id},
+	  #{operatorId},
+	  #{params},
+	  #{x},
+	  #{y},
+	  #{text},
+	  #{inputs},
+	  #{outputs},
+	  #{icon},
+	  #{expId},
+	  #{log},
+	  #{origin},
+	  #{status},
+	  #{isSubprocess},
+	  #{parentId},
+	  #{nodeGraph}
+	)
+	</insert>
+	
+	<update id="update" parameterType="abc_pipeline_engine.node.data.Node">
+	UPDATE
+	  dsw_node
+	  <set>
+	    <if test="params != null">
+	    params = #{params},
+	    </if>
+	    <if test="log != null">
+	    node_log = #{log},
+	    </if>
+	    <if test="status != null">
+	    node_status = #{status},
+	    </if>
+	    <if test="x != null">
+	    x = #{x},
+	    </if>
+	    <if test="y != null">
+	    y = #{y},
+	    </if>
+	  </set>
+	  WHERE
+	    id = #{id}
+	</update>
+	
+	<update id="updateParam" parameterType="abc_pipeline_engine.node.data.Node">
+	UPDATE
+	  dsw_node
+	  <set>
+	    <if test="params != null">
+	    params = #{params},
+	    </if>
+	  </set>
+	  WHERE
+	    id = #{id}
+	</update>
+	
+	<update id="updateLog" parameterType="abc_pipeline_engine.node.data.Node">
+	UPDATE
+	  dsw_node
+	  <set>
+	    <if test="log != null">
+	    node_log = #{log},
+	    </if>
+	  </set>
+	  WHERE
+	    id = #{id}
+	</update>
+
+	<update id="updatePosition" parameterType="abc_pipeline_engine.node.data.Node">
+	UPDATE
+	  dsw_node
+	  <set>
+	    <if test="x != null">
+	    x = #{x},
+	    </if>
+	    <if test="y != null">
+	    y = #{y},
+	    </if>
+	  </set>
+	  WHERE
+	    id = #{id}
+	</update>
+		
+	<update id="updateGraph" parameterType="abc_pipeline_engine.node.data.Node">
+	UPDATE
+	  dsw_node
+	  <set>
+	    <if test="nodeGraph != null">
+	    node_graph = #{nodeGraph},
+	    </if>
+	  </set>
+	  WHERE
+	    id = #{id}
+	</update>
+	
+	<delete id="remove" parameterType="string">
+	DELETE 
+	FROM 
+	  dsw_node
+	WHERE 
+	  id = #{_parameter}
+	</delete>
+	
+	<delete id="removeByExperiment" parameterType="string">
+	DELETE 
+	FROM 
+	  dsw_node
+	WHERE 
+	  exp_id = #{_parameter}
+	</delete>
+	
+	
+</mapper>

@@ -1,0 +1,81 @@
+/**
+ * Copyright (C) 2001-2019 by RapidMiner and the contributors
+ * 
+ * Complete list of developers available at our web site:
+ * 
+ * http://rapidminer.com
+ * 
+ * This program is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU Affero General Public License as published by the Free Software Foundation, either version 3
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License along with this program.
+ * If not, see http://www.gnu.org/licenses/.
+*/
+package base.operators.operator.ports.impl;
+
+import base.operators.Process;
+import base.operators.adaption.belt.AtPortConverter;
+import base.operators.operator.DebugMode;
+import base.operators.operator.IOObject;
+import base.operators.operator.ports.*;
+import base.operators.operator.ports.metadata.MetaData;
+
+
+/**
+ * @author Simon Fischer
+ */
+
+public class OutputPortImpl extends AbstractOutputPort {
+
+	/** Use the factory method {@link OutputPorts#createPort(String)} to create OutputPorts. */
+	protected OutputPortImpl(Ports<? extends Port> owner, String name, boolean simulatesStack) {
+		super(owner, name, simulatesStack);
+	}
+
+
+	@Override
+	public void deliver(IOObject object) {
+		// Convert data sets using project Belts API. Please note that this API is work in progress and not meant for
+		// public use yet.
+		object = AtPortConverter.convertIfNecessary(object, this);
+
+		// registering history of object
+		if (object != null) {
+			object.appendOperatorToHistory(getPorts().getOwner().getOperator(), this);
+			DeliveringPortManager.setLastDeliveringPort(object, this);
+			// set source if not yet set
+			if (object.getSource() == null) {
+				if (getPorts().getOwner().getOperator() != null) {
+					object.setSource(getPorts().getOwner().getOperator().getName());
+				}
+			}
+		}
+
+		// delivering data
+		setData(object);
+		if (isConnected()) {
+			InputPort port = getDestination();
+			if(port != null){
+				port.receive(object);
+			}
+		}
+
+		Process process = getPorts().getOwner().getOperator().getProcess();
+		if (process != null && process.getDebugMode() == DebugMode.COLLECT_METADATA_AFTER_EXECUTION) {
+			if (object == null) {
+				setRealMetaData(null);
+			} else {
+				setRealMetaData(MetaData.forIOObject(object));
+			}
+		} else {
+			setRealMetaData(null);
+		}
+
+	}
+
+}

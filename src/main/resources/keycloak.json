@@ -1,0 +1,7 @@
+{
+    "realm": "${cookie.tenantrealm}",
+    "auth-server-url": "http://10.111.25.149:9080/auth",
+    "ssl-required": "none",
+    "resource": "idsw-local-01",
+    "public-client": true
+}

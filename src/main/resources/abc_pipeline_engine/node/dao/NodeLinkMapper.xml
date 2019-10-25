@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="abc_pipeline_engine.node.dao.NodeLinkMapper">
+	<resultMap type="abc_pipeline_engine.node.data.NodeLink" id="nodeLinkMap">
+		<id property="id" column="id" />
+		<result property="sourceId" column="source_id" />
+		<result property="outputPortId" column="output_port_id" />
+		<result property="targetId" column="target_id" />
+		<result property="inputPortId" column="input_port_id" />
+		<result property="expId" column="exp_id" />
+		<result property="parentId" column="parent_id" />
+	</resultMap>
+	
+	<select id="getOne" parameterType="string" resultMap="nodeLinkMap">
+	SELECT
+	  id,
+	  source_id,
+	  output_port_id,
+	  target_id,
+	  input_port_id,
+	  exp_id,
+	  parent_id
+	FROM
+	  dsw_node_link
+	WHERE
+	  id = #{_parameter}
+	</select>
+	
+<select id="queryByParam" parameterType="map" resultMap="nodeLinkMap">
+	SELECT
+	  id,
+	  source_id,
+	  output_port_id,
+	  target_id,
+	  input_port_id,
+	  exp_id,
+	  parent_id
+	FROM
+	  dsw_node_link
+	<where>
+	    <if test="expId != null and expId !='' ">
+	    AND exp_id = #{expId}
+	    </if>
+	    <if test="sourceId != null and sourceId !='' ">
+	    AND source_id = #{sourceId}
+	    </if>
+	    <if test="outputPortId != null and outputPortId !='' ">
+	    AND output_port_id = #{outputPortId}
+	    </if>
+	    <if test="targetId != null and targetId !='' ">
+	    AND target_id = #{targetId}
+	    </if>
+	    <if test="inputPortId != null and inputPortId !='' ">
+	    AND input_port_id = #{inputPortId}
+	    </if>
+	    <if test="parentId != null and parentId !='' ">
+	    AND parent_id = #{parentId}
+	    </if>
+	 </where>
+</select>
+	
+	
+	<insert id="add" parameterType="abc_pipeline_engine.node.data.NodeLink">
+	INSERT 
+	INTO
+	  dsw_node_link
+	(
+	  id,
+	  source_id,
+	  output_port_id,
+	  target_id,
+	  input_port_id,
+	  exp_id,
+	  parent_id
+	) VALUES (
+	  #{id},
+	  #{sourceId},
+	  #{outputPortId},
+	  #{targetId},
+	  #{inputPortId},
+	  #{expId},
+	  #{parentId}
+	)
+	</insert>
+	
+	<update id="update" parameterType="abc_pipeline_engine.node.data.NodeLink">
+	UPDATE
+	  dsw_node_link
+	  <set>
+	    <if test="sourceId != null">
+	    source_id = #{sourceId},
+	    </if>
+	    <if test=" outputPortId != null">
+	    output_port_id = #{outputPortId},
+	    </if>
+	    <if test="targetId != null">
+	    target_id = #{targetId},
+	    </if>
+	    <if test="inputPortId != null">
+	    input_port_id = #{inputPortId},
+	    </if>
+	    <if test="expId != null">
+	    exp_id = #{expId},
+	    </if>
+	    <if test="parentId != null">
+	    parent_id = #{parentId},
+	    </if>
+	  </set>
+	  WHERE
+	    id = #{id}
+	</update>
+	
+	<delete id="remove" parameterType="string">
+	DELETE 
+	FROM 
+	  dsw_node_link 
+	WHERE 
+	  id = #{_parameter}
+	</delete>
+	
+	<delete id="removeByNode" parameterType="map">
+	DELETE 
+	FROM 
+	  dsw_node_link 
+	WHERE 
+	  (source_id = #{nodeId} OR target_id=#{nodeId}) AND exp_id=#{expId}
+	</delete>
+	
+	<delete id="removeNodeLink" parameterType="abc_pipeline_engine.node.data.NodeLink">
+	DELETE 
+	FROM 
+	  dsw_node_link 
+	WHERE 
+	  source_id=#{sourceId} AND output_port_id=#{outputPortId} AND target_id=#{targetId} AND input_port_id=#{inputPortId}
+	</delete>
+	
+	<delete id="removeByExperiment" parameterType="string">
+		DELETE
+		FROM
+		dsw_node_link
+		WHERE
+		exp_id = #{_parameter}
+	</delete>
+	
+</mapper>

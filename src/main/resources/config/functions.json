@@ -1,0 +1,776 @@
+{
+	"Functions": {
+		"Logical": [{
+			"name": "if()",
+			"help": "If-Then-Else",
+			"description": "Delivers the result of the second argument if the first one is evaluated to true and the result of the third argument otherwise.",
+			"example": "Example: if(att1 > 5, 7 * att1, att2 / 2)",
+			"parameters": "if ( Condition if, Attribute_value then, Attribute_value else )",
+			"num": 3
+		}, {
+			"name": "!",
+			"help": "If-Then-Else",
+			"description": "Delivers true if the following term is false or vice versa. ",
+			"example": "Example: !(att1 > 2)",
+			"parameters": "!",
+			"num": 1
+		}, {
+			"name": "&&",
+			"help": "Boolean And",
+			"description": "Delivers true if both surrounding terms are true. ",
+			"example": "Example: (att1 > 2) && (att2 < 4)",
+			"parameters": "&&",
+			"num": 2
+		}, {
+			"name": "||",
+			"help": "Boolean Or",
+			"description": "Delivers true if at least one of the terms is true.",
+			"example": "Example: (att1 < 3) || (att2 > 1)",
+			"parameters": "||",
+			"num": 2
+		}],
+		"Comparison": [{
+			"name": "==",
+			"help": "Equals",
+			"description": "Delivers true if the first term is not equal to the second. ",
+			"example":"Example: att1 != att2",
+			"parameters": "==",
+			"num": 2
+		}, {
+			"name": "!=",
+			"help": "Not Equals",
+			"description": "Delivers true if the first term is equal to the second. ",
+			"example":"Example: att1 == att2",
+			"parameters": "!=",
+			"num": 2
+		}, {
+			"name": "<",
+			"help": "Less Than",
+			"description": "Delivers true if the first term is less than the second. ",
+			"example":"Example: att1 < 4",
+			"parameters": "&lt",
+			"num": 2
+		}, {
+			"name": ">",
+			"help": "Greater Than",
+			"description": "Delivers true if the first term is greater than the second. ",
+			"example": "Example: att2 > 3",
+			"parameters": "&gt",
+			"num": 2
+		}, {
+			"name": "<=",
+			"help": "Greater Equals",
+			"description": "Delivers true if the first term is greater than or equal to the second. ",
+			"example": "Example: att4 >= 4",
+			"parameters": "&gt;=",
+			"num": 2
+		}, {
+			"name": ">=",
+			"help": "Less Equals",
+			"description": "Delivers true if the first term is less than or equal to the second. ",
+			"example": "Example: att3 <= 5",
+			"parameters": "&lt;=",
+			"num": 2
+		}, {
+			"name": "missing",
+			"help": "Missing",
+			"description": "Checks if the given argument is missing. Returns true if the given argument is missing, otherwise returns false. ",
+			"example": "Example: missing(att1)",
+			"parameters": "missing ( Attribute_value argument )",
+			"num": 1
+		}, {
+			"name": "isFinite()",
+			"help": "isFinite",
+			"description": "Checks if the given argument is finite. Returns true if the given argument is finite, otherwise returns false.",
+			"example": "Example: isFinite(att1)",
+			"parameters": "isFinite ( Numeric argument )",
+			"num": 1
+		}],
+		"Text information": [{
+			"name": "length()",
+			"help": "Length",
+			"description": "Delivers the length of the given argument. ",
+			"example": "Example: length(att1)",
+			"parameters": "length ( Nominal argument )",
+			"num": 1
+		}, {
+			"name": "index()",
+			"help": "Index",
+			"description": "Delivers the first position of the given search string in the text. ",
+			"example": "Example: index(\"Text\", \"e\") delivers 1 ",
+			"parameters": "index ( Nominal text, Nominal search )",
+			"num": 2
+		}, {
+			"name": "compare()",
+			"help": "Compare",
+			"description": "Compares the two arguments and delivers a negative value, if the first argument is lexicographically smaller than the second argument. ",
+			"example": "Example: compare(att2, att3)",
+			"parameters": "compare ( Nominal argument, Nominal argument )",
+			"num": 2
+		}, {
+			"name": "equals()",
+			"help": "Equals",
+			"description": "Delivers true if the two arguments are lexicographically equal to each other. ",
+			"example": "Example: equals(att1, att2)",
+			"parameters": "equals ( Nominal argument, Nominal argument )",
+			"num": 2
+		}, {
+			"name": "contains()",
+			"help": "Contains",
+			"description": "Delivers true if the second argument is part of the first argument. ",
+			"example": "Example: contains(att1, \"pa\")",
+			"parameters": "contains ( Nominal text, Nominal search )",
+			"num": 2
+		}, {
+			"name": "starts()",
+			"help": "Starts With",
+			"description": "Delivers true if the first argument starts with the second argument.",
+			"example": "Example: starts(att1, \"OS\")",
+			"parameters": "ends ( Nominal text, Nominal search )",
+			"num": 2
+		}, {
+			"name": "ends()",
+			"help": "Ends With",
+			"description": "Delivers true if the first argument ends with the second. ",
+			"example": "Example: ends(att2, \"AM\")",
+			"parameters": "starts ( Nominal text, Nominal search )",
+			"num": 2
+		}, {
+			"name": "matches()",
+			"help": "Matches",
+			"description": "Delivers true if the first argument matches the regular expression defined by the second argument. ",
+			"example": "Example: matches(att3, \".*mm.*\")",
+			"parameters": "matches ( Nominal text, Nominal regex )",
+			"num": 2
+		}, {
+			"name": "finds()",
+			"help": "Finds",
+			"description": "Delivers true if, and only if, a subsequence  of the first argument matches the regular expression defined by the second argument. ",
+			"example": "Example: finds(att3, \".*AM.*|.*PM.*\")",
+			"parameters": "finds ( Nominal text, Nominal regex )",
+			"num": 2
+		}],
+		"Text transformation": [{
+			"name": "cut()",
+			"help": "Cut",
+			"description": "Cuts the substring of given length at the given start index out of a string.",
+			"example": "Example: cut(\"Text\", 1, 2) delivers \"ex\"",
+			"parameters": "cut ( Nominal text, Numeric start, Numeric length )",
+			"num": 3
+		}, {
+			"name": "concat()",
+			"help": "Concatenation",
+			"description": "Concatenates the given arguments. ",
+			"example": "Examples: concat(\"At\", \"om\") delivers \"Atom\"",
+			"parameters": "concat ( Nominal argument, ..., Nominal argument )",
+			"num": -1
+		}, {
+			"name": "replace()",
+			"help": "Replace",
+			"description": "Replaces all occurences of a search string in the given text with the defined replacement. ",
+			"example": "Example: replace(att1, \"am\", \"pm\") replaces all occurences of the pattern \"am\" in each value of att1 with \"pm\"",
+			"parameters": "replace ( Nominal text, Nominal search, Nominal replacement )",
+			"num": 3
+		}, {
+			"name": "replaceAll()",
+			"help": "Replace All",
+			"description": "Evaluates the second argument as regular expression and replaces all matches in the given text with the defined replacement. ",
+			"example": "Example: replaceAll(att1, \"[abc]\", \"X\") replaces all occurences of \"a\", \"b\" or \"c\" with \"X\" in each value of att1",
+			"parameters": "replaceAll ( Nominal text, Nominal regex, Nominal replacement )",
+			"num": 3
+		}, {
+			"name": "lower()",
+			"help": "Lower",
+			"description": "Transforms the argument into lower case characters. ",
+			"example": "Example: lower(att2)",
+			"parameters": "lower ( Nominal argument )",
+			"num": 1
+		}, {
+			"name": "upper()",
+			"help": "Upper",
+			"description": "Transforms the argument into upper case characters.",
+			"example": "Example: upper(att3)",
+			"parameters": "upper ( Nominal argument )",
+			"num": 1
+		}, {
+			"name": "prefix()",
+			"help": "Prefix",
+			"description": "Delivers the prefix of the specified length.",
+			"example": "Example: prefix(att2, 3)",
+			"parameters": "prefix ( Nominal text, Integer length )",
+			"num": 2
+		}, {
+			"name": "suffix()",
+			"help": "Suffix",
+			"description": "Delivers the suffix of the specified length.",
+			"example": "Example: suffix(att1, 3)",
+			"parameters": "suffix ( Nominal text, Integer length )",
+			"num": 2
+		}, {
+			"name": "char()",
+			"help": "Character At",
+			"description": "Delivers the character at the specified position.",
+			"example": "Example: char(att2, 3)",
+			"parameters": "char ( Nominal text, Integer position )",
+			"num": 2
+		}, {
+			"name": "trim()",
+			"help": "Trim",
+			"description": "Removes all leading and trailing white space characters.",
+			"example": "Example: trim(att3)",
+			"parameters": "trim ( Nominal argument )",
+			"num": 1
+		}, {
+			"name": "escape_html()",
+			"help": "Escape HTML",
+			"description": "Escapes HTML entities in the given argument.",
+			"example": "Example: escape_html(att1)",
+			"parameters": "escape_html ( Nominal argument )",
+			"num": 1
+		}],
+		"Mathematical functions": [{
+			"name": "sqrt()",
+			"help": "Square Root",
+			"description": "Delivers the square root of the given argument.",
+			"example": "Example: sqrt(att2)",
+			"parameters": "sqrt ( Numeric argument )",
+			"num": 1
+		}, {
+			"name": "pow()",
+			"help": "Power",
+			"description": "First term to the power of the second one.",
+			"example": "Example: pow(att1, 3)",
+			"parameters": "pow ( Numeric number, Numeric power )",
+			"num": 2
+		}, {
+			"name": "exp()",
+			"help": "Exponential",
+			"description": "Calculates the value of the constant e to the power of the argument.",
+			"example": "Example: exp(att3)",
+			"parameters": "exp( Numeric argument )",
+			"num": 1
+		}, {
+			"name": "ln()",
+			"help": "Natural Logarithm",
+			"description": "Calculates the natural logarithm of the argument (logarithm to base e).",
+			"example": "Example: ln(5)",
+			"parameters": "ln ( Numeric argument )",
+			"num": 1
+		}, {
+			"name": "log()",
+			"help": "Logarithm Base 10",
+			"description": "Calculates the logarithm of the argument to base 10.",
+			"example": "Example: log(att1)",
+			"parameters": "log ( Numeric argument )",
+			"num": 1
+		}, {
+			"name": "ld()",
+			"help": "Logarithm Base 2",
+			"description": "Calculates the binary logarithm of the argument (logarithm to base 2).",
+			"example": "Example: ld(att2)",
+			"parameters": "ld ( Numeric argument )",
+			"num": 1
+		}, {
+			"name": "sgn()",
+			"help": "Signum",
+			"description": "Delivers -1 or +1 depending on the signum of the argument. Delivers 0 if the argument is zero.",
+			"example": "Example: sgn(-5)",
+			"parameters": "sgn ( Numeric argument )",
+			"num": 1
+		}, {
+			"name": "abs()",
+			"help": "Absolute Value",
+			"description": "Delivers the non-negative value of the argument without regard to its sign.",
+			"example": "Example: sgn(-5)",
+			"parameters": "abs ( Numeric argument )",
+			"num": 1
+		}, {
+			"name": "mod()",
+			"help": "Modulus",
+			"description": "Calculates the modulo of the two terms by returning the remainder of the division of the first term by the second one.",
+			"example": "Example: mod(11,2)",
+			"parameters": "mod ( Numeric number, Numeric divisor )",
+			"num": 2
+		}],
+		"Statistical functions": [{
+			"name": "avg()",
+			"help": "Average",
+			"description": "Calculates the average of the given arguments.",
+			"example": "Example: avg(att1, att3)",
+			"parameters": "avg ( Numeric argument, ..., Numeric argument )",
+			"num": -1
+		}, {
+			"name": "min()",
+			"help": "Minimum",
+			"description": "Calculates the minimum of the given arguments.",
+			"example": "Example: min(0, att2, att3)",
+			"parameters": "min ( Numeric argument, ..., Numeric argument )",
+			"num": -1
+		}, {
+			"name": "max()",
+			"help": "Maximum",
+			"description": "Calculates the maximum of the given arguments.",
+			"example": "Example: max(0, att2, att3)",
+			"parameters": "max ( Numeric argument, ..., Numeric argument )",
+			"num": -1
+		}, {
+			"name": "binom()",
+			"help": "Binomial",
+			"description": "Calculates the binomial coefficients.",
+			"example": "Example: binom(5, 2)",
+			"parameters": "binom ( Integer number, Integer chosen )",
+			"num": 2
+		}, {
+			"name": "sum()",
+			"help": "Sum",
+			"description": "Calculates the sum of all arguments.",
+			"example": "Example: sum(att1, att3, 42)",
+			"parameters": "sum ( Numeric argument, ..., Numeric argument )",
+			"num": -1
+		}, {
+			"name": "rand()",
+			"help": "Random",
+			"description": "Delivers a random number between 0 and 1. If rand() has no argument, the process random generator is used (including the global seed). If rand() has a fixed positive integer as argument, this is used as seed. If the seed depends on an attribute value, a new random generator is created for each example.",
+			"example": "Example: rand(), rand(2015)",
+			"parameters": "rand ()",
+			"num": -1
+		}],
+		"Trigonometric functions": [{
+			"name": "sin()",
+			"help": "Sine",
+			"description": "Calculates the sine of the given argument.",
+			"example": "Example: sin(att1)",
+			"parameters": "sin ( Numeric argument )",
+			"num": 1
+		}, {
+			"name": "cos()",
+			"help": "Cosine",
+			"description": "Calculates the cosine of the given argument.",
+			"example": "Example: cos(att2)",
+			"parameters": "cos ( Numeric argument )",
+			"num": 1
+		}, {
+			"name": "tan()",
+			"help": "Tangent",
+			"description": "Calculates the tangent of the given argument.",
+			"example": "Example: tan(att2)",
+			"parameters": "tan ( Numeric argument )",
+			"num": 1
+		}, {
+			"name": "cot()",
+			"help": "Cotangent",
+			"description": "Calculates the cotangent of the given argument.",
+			"example": "Example: cot(att2)",
+			"parameters": "cot ( Numeric argument )",
+			"num": 1
+		}, {
+			"name": "sec()",
+			"help": "Secant",
+			"description": "Calculates the secant of the given argument.",
+			"example": "Example: sec(att2)",
+			"parameters": "sec ( Numeric argument )",
+			"num": 1
+		}, {
+			"name": "cosec()",
+			"help": "Cosecant",
+			"description": "Calculates the cosecant of the given argument.",
+			"example": "Example: cosec(att2)",
+			"parameters": "cosec ( Numeric argument )",
+			"num": 1
+		}, {
+			"name": "asin()",
+			"help": "Arc Sine",
+			"description": "Calculates the inverse sine of the given argument.",
+			"example": "Example: asin(att2)",
+			"parameters": "asin ( Numeric argument )",
+			"num": 1
+		}, {
+			"name": "acos()",
+			"help": "Arc Cos",
+			"description": "Calculates the inverse cosine of the given argument.",
+			"example": "Example: acos(att2)",
+			"parameters": "acos ( Numeric argument )",
+			"num": 1
+		}, {
+			"name": "atan()",
+			"help": "Arc Tangent",
+			"description": "Calculates the inverse tangent of the given argument.",
+			"example": "Example: atan(att2)",
+			"parameters": "atan ( Numeric argument )",
+			"num": 1
+		}, {
+			"name": "atan2()",
+			"help": "Arc Tangent2",
+			"description": "Calculates the inverse tangent based on the two given arguments.",
+			"example": "atan(att1, 0.5)",
+			"parameters": "atan2 ( Numeric x-coordinate, Numeric y-coordinate )",
+			"num": 2
+		}, {
+			"name": "sinh()",
+			"help": "Hyperbolic Sine",
+			"description": "Calculates the hyperbolic sine of the given argument.",
+			"example": "Example: sinh(att2)",
+			"parameters": "sinh ( Numeric argument )",
+			"num": 1
+		}, {
+			"name": "cosh()",
+			"help": "Hyperbolic Cosine",
+			"description": "Calculates the hyperbolic Cosine of the given argument.",
+			"example": "Example: cosh(att2)",
+			"parameters": "cosh ( Numeric argument )",
+			"num": 1
+		}, {
+			"name": "tanh()",
+			"help": "Hyperbolic Tangent",
+			"description": "Calculates the hyperbolic tangent of the given argument.",
+			"example": "Example: tanh(att2)",
+			"parameters": "tanh ( Numeric argument )",
+			"num": 1
+		}, {
+			"name": "asinh()",
+			"help": "Inverse Hyperbolic Sine",
+			"description": "Calculates the Inverse Hyperbolic Sine of the given argument.",
+			"example": "Example: asinh(att2)",
+			"parameters": "asinh ( Numeric argument )",
+			"num": 1
+		}, {
+			"name": "acosh()",
+			"help": "Inverse Hyperbolic Cosine",
+			"description": "Calculates the Inverse Hyperbolic Cosine of the given argument.",
+			"example": "Example: acosh(att2)",
+			"parameters": "acosh ( Numeric argument )",
+			"num": 1
+		}, {
+			"name": "atanh()",
+			"help": "Inverse Hyperbolic Tangent",
+			"description": "Calculates the Inverse Hyperbolic Tangent of the given argument.",
+			"example": "Example: atanh(att2)",
+			"parameters": "atanh ( Numeric argument )",
+			"num": 1
+		}],
+		"Rounding functions": [{
+			"name": "round()",
+			"help": "Round",
+			"description": "Rounds the given number to the nearest integer. If two arguments are given, the first one is rounded to the number of digits indicated by the second argument. ",
+			"example": "Examples: round(att1); round(att2, 3)",
+			"parameters": "round ( Numeric argument )",
+			"num": -1
+		}, {
+			"name": "floor()",
+			"help": "Floor",
+			"description": "Calculates the largest integer less than or equal to the given argument.",
+			"example": "Example: floor(att3)",
+			"parameters": "floor ( Numeric argument )",
+			"num": 1
+		}, {
+			"name": "ceil()",
+			"help": "Ceil",
+			"description": "Calculates the smallest integer greater than or equal to the given argument.",
+			"example": "Example: ceil(att1)",
+			"parameters": "ceil ( Numeric argument )",
+			"num": 1
+		}, {
+			"name": "rint()",
+			"help": "Rint",
+			"description": "Rounds the given number to the closest integer. If two arguments are given, the first one is rounded to the number of fractional digits indicated by the second argument. Unlike round(), in the case of a tie (e.g 2.5) rint() prefers the nearest even integer (rint(2.5) = 2). This has better statistical properties.",
+			"example": "Examples: rint(att1); rint(att2, 3)",
+			"parameters": "rint ( Numeric argument )",
+			"num": -1
+		}],
+		"Conversion functions": [{
+			"name": "str()",
+			"help": "To String",
+			"description": "Transforms the number into a string (nominal value).",
+			"example": "Example: str(17)",
+			"parameters": "str ( Numeric number )",
+			"num": 1
+		}, {
+			"name": "parse()",
+			"help": "To Number",
+			"description": "Transforms the given string (nominal value) into a number by parsing it.",
+			"example": "Example: parse(att2)",
+			"parameters": "parse ( Nominal string )",
+			"num": 1
+		}, {
+			"name": "date_parse()",
+			"help": "Parse Date",
+			"description": "Parses the given string or double to a date. For specific formats use the function date_parse_custom.",
+			"example": "Example: date_parse(\"10/27/15\")",
+			"parameters": "date_parse ( Attribute_value argument )",
+			"num": 1
+		}, {
+			"name": "date_parse_loc()",
+			"help": "Parse Date with Locale",
+			"description": "Parses the given string or double to a date with the given locale (via lowercase two-letter ISO-639 code).",
+			"example": "Example: date_parse(att1, \"en\")",
+			"parameters": "date_parse_loc ( Attribute_value date, Nominal locale )",
+			"num": 2
+		}, {
+			"name": "date_parse_custom()",
+			"help": "Parse Custom Date",
+			"description": "Parses the given date string to a date using a custom pattern and the given locale (via lowercase two-letter ISO-639 code). ",
+			"example": "Example: date_parse_custom(att1, \"dd|MM|yy\", \"de\")",
+			"parameters": "date_parse_custom ( Nominal date, Nominal pattern, Nominal locale )",
+			"num": -1
+		}, {
+			"name": "date_str()",
+			"help": "Date to String",
+			"description": "Changes a date to a string using the specified format.",
+			"example": "Example: date_str(att1, DATE_FULL, DATE_SHOW_DATE_AND_TIME)",
+			"parameters": "date_str ( Date date, Constant size, Constant format )",
+			"num": 3
+		}, {
+			"name": "date_str_loc()",
+			"help": "Date to String with Locale",
+			"description": "Changes a date to a string using the specified format and the given locale (via lowercase two-letter ISO-639 code).",
+			"example": "Example: date_str_loc(att1, DATE_MEDIUM, DATE_SHOW_TIME_ONLY, \"us\")",
+			"parameters": "date_str_loc ( Date date, Constant size, Constant format, Nominal locale )",
+			"num": 4
+		}, {
+			"name": "date_str_custom()",
+			"help": "Date to String with custom pattern",
+			"description": "Changes a date to a string using the specified custom format pattern and the (optional) given locale (via lowercase two-letter ISO-639 code).",
+			"example": "Example: date_str_custom(att1, \"dd|MM|yy\", \"us\")",
+			"parameters": "date_str_custom ( Date date, Nominal format )",
+			"num": -1
+		}],
+		"Date calculation": [{
+			"name": "date_before()",
+			"help": "Date Before",
+			"description": "Returns true if the first date is strictly earlier than the second date.",
+			"example": "Example: date_before(att1, att2)",
+			"parameters": "date_before ( Date first, Date second )",
+			"num": 2
+		}, {
+			"name": "date_after()",
+			"help": "Date After",
+			"description": "Returns true if the first date is strictly later than the second date.",
+			"example": "Example: date_after(att1, att2)",
+			"parameters": "date_after ( Date first, Date second )",
+			"num": 2
+		}, {
+			"name": "date_now()",
+			"help": "Create Date",
+			"description": "Returns the current date.",
+			"example": "Example: date_now()",
+			"parameters": "date_now ()",
+			"num": 0
+		}, {
+			"name": "date_add()",
+			"help": "Add Time",
+			"description": "Allows to add a custom amount of time to a given date. Note that only the integer portion of a given value will be used! Locale and Timezone arguments are optional.",
+			"example": "Example: date_add(date, value, DATE_UNIT_DAY, \"us\", \"America/Los_Angeles\")",
+			"parameters": "date_add ( Date date, Integer amount, Constant unit )",
+			"num": -1
+		}, {
+			"name": "date_set()",
+			"help": "Set Time",
+			"description": "Allows to set a custom value for a portion of a given date, e.g. set the day to 23. Note that only the integer portion of a given value will be used! Locale and Timezone arguments are optional.",
+			"example": "Example: date_set(date, value, DATE_UNIT_DAY, \"us\", \"America/Los_Angeles\")",
+			"parameters": "date_set ( Date date, Integer value, Constant unit )",
+			"num": -1
+		}, {
+			"name": "date_diff()",
+			"help": "Date Difference",
+			"description": "Calculates the elapsed time in milliseconds between two dates.",
+			"example": "Example: date_diff(timeStart, timeEnd)",
+			"parameters": "date_diff ( Date first, Date second )",
+			"num": -1
+		}, {
+			"name": "date_get()",
+			"help": "Get Time",
+			"description": "Allows to get a portion of a given date, e.g. get the day of a month only. Locale and Timezone arguments are optional. ",
+			"example": "Example: date_millis(date_now())",
+			"parameters": "date_get ( Date date, Constant unit )",
+			"num": -1
+		}, {
+			"name": "date_millis()",
+			"help": "Get Milliseconds",
+			"description": "Returns the number of milliseconds since January 1, 1970, 00:00:00 GMT.",
+			"example": "Example: date_millis(date_now())",
+			"parameters": "date_millis ( Date date )",
+			"num": 1
+		}],
+		"Bitwise operations": [{
+			"name": "bit_or()",
+			"help": "Bitwise OR",
+			"description": "Calculate the bitwise OR of two integer arguments.",
+			"example": "Example: bit_or(att1, att2)",
+			"parameters": "bit_or ( Integer first, Integer second )",
+			"num": 2
+		}, {
+			"name": "bit_and()",
+			"help": "Bitwise AND",
+			"description": "Calculate the bitwise AND of two integer arguments.",
+			"example": "Example: bit_and(att1, att2)",
+			"parameters": "bit_and ( Integer first, Integer second )",
+			"num": 2
+		}, {
+			"name": "bit_xor()",
+			"help": "Bitwise XOR",
+			"description": "Calculate the bitwise XOR of two integer arguments.",
+			"example": "Example: bit_xor(att1, att2)",
+			"parameters": "bit_xor ( Integer first, Integer second )",
+			"num": 2
+		}, {
+			"name": "bit_not()",
+			"help": "Bitwise NOT",
+			"description": "Calculate the bitwise NOT of the integer argument.",
+			"example": "Example: bit_not(att2)",
+			"parameters": "bit_not ( Integer argument )",
+			"num": 1
+		}],
+		"Basic operations": [{
+			"name": "+",
+			"help": "Addition",
+			"description": "Calculates the sum of the two terms surrounding this operator.",
+			"example": "Example: att1 + 7",
+			"parameters": "+",
+			"num": -1
+		}, {
+			"name": "-",
+			"help": "Subtraction",
+			"description": "Calculates the difference of the two terms by subtracting the second term from the first one.",
+			"example": "Example: 423 - attr2",
+			"parameters": "-",
+			"num": -1
+		}, {
+			"name": "*",
+			"help": "Multiplication",
+			"description": "Calculates the product of the two terms surrounding this operator.",
+			"example": "Example: 423 * attr2",
+			"parameters": "*",
+			"num": 2
+		}, {
+			"name": "/",
+			"help": "Division",
+			"description": "Calculates the quotient of the two terms by dividing the first term by the second one.",
+			"example": "Example: 12 / 4",
+			"parameters": "/",
+			"num": 2
+		}, {
+			"name": "^",
+			"help": "Power",
+			"description": "First term to the power of the second one.",
+			"example": "2^3",
+			"parameters": "^",
+			"num": 2
+		}, {
+			"name": "%",
+			"help": "Modulus",
+			"description": "Calculates the modulo of the two terms by returning the remainder of the division of the first term by the second one.",
+			"example": "11 % 3",
+			"parameters": "%",
+			"num": 2
+		}],
+		"Advanced functions": [{
+			"name": "param()",
+			"help": "Parameter",
+			"description": "Delivers the specified parameter of the operator.",
+			"example": "Example: param(\"Read Excel\", \"file\")",
+			"parameters": "param ( Nominal operator name, Nominal parameter name )",
+			"num": 2
+		}, {
+			"name": "macro()",
+			"help": "Macro",
+			"description": "Delivers the value of the macro with the name specified by the first argument as string. Optionally a default value can be specified, which is delivered if the macro is not defined. ",
+			"example": "Examples: macro(\"myMacro\"); macro(\"myMacro\", \"default value\")",
+			"parameters": "macro ( Nominal macro name )",
+			"num": 1
+		}, {
+			"name": "attribute()",
+			"help": "Attribute Eval",
+			"description": "Delivers the value of the attribute with the name specified by the first argument as expression. Can take one of the type constants specifying the expected type as a second argument. If the first argument is not constant, i.e. depends on attribute values, a second argument is mandatory. ",
+			"example": "Examples: attribute(\"att\" + %{macro}); attribute(\"att\" + [integerAttribute], REAL)",
+			"parameters": "attribute ( Nominal attribute name )",
+			"num": -1
+		}, {
+			"name": "eval()",
+			"help": "Evaluation",
+			"description": "Evaluates the given string argument. Can take one of the type constants specifying the expected type as a second argument. If the first argument is not constant, i.e. depends on attribute values, a second argument is mandatory. ",
+			"example": "Examples: eval(\"1+2+3\"); eval(%{my macro}); eval([my attribute], NOMINAL)",
+			"parameters": "eval ( Nominal string )",
+			"num": -1
+		}]
+	},
+	"Inputs": {
+		"Basic Contants": [{
+			"name": "TRUE"
+		}, {
+			"name": "FALSE"
+		}, {
+			"name": "e"
+		}, {
+			"name": "PI"
+		}, {
+			"name": "INFINITY"
+		}, {
+			"name": "MISSING_NOMINAL"
+		}, {
+			"name": "MISSING_DATE"
+		}, {
+			"name": "MISSING_NUMERIC"
+		}, {
+			"name": "NOMINAL",
+			"description": "used in eval and attribute eval"
+		}, {
+			"name": "BINOMINAL",
+			"description": "used in eval and attribute eval"
+		}, {
+			"name": "DATE",
+			"description": "used in eval and attribute eval"
+		}, {
+			"name": "REAL",
+			"description": "used in eval and attribute eval"
+		}, {
+			"name": "INTEGER",
+			"description": "used in eval and attribute eval"
+		}],
+		"Date Function Constants": [{
+			"name": "DATE_SHORT",
+			"description": "used in date_str and date_str_loc"
+		}, {
+			"name": "DATE_MEDIUM",
+			"description": "used in date_str and date_str_loc"
+		}, {
+			"name": "DATE_LONG",
+			"description": "used in date_str and date_str_loc"
+		}, {
+			"name": "DATE_FULL",
+			"description": "used in date_str and date_str_loc"
+		}, {
+			"name": "DATE_SHOW_DATE_ONLY",
+			"description": "used in date_str and date_str_loc"
+		}, {
+			"name": "DATE_SHOW_TIME_ONLY",
+			"description": "used in date_str and date_str_loc"
+		}, {
+			"name": "DATE_SHOW_DATE_AND_TIME",
+			"description": "used in date_str and date_str_loc"
+		}, {
+			"name": "DATE_UNIT_YEAR",
+			"description": "used in date_str and date_str_loc"
+		}, {
+			"name": "DATE_UNIT_MONTH",
+			"description": "used in date_str and date_str_loc"
+		}, {
+			"name": "DATE_UNIT_WEEK",
+			"description": "used in date_str and date_str_loc"
+		}, {
+			"name": "DATE_UNIT_DAY",
+			"description": "used in date_str and date_str_loc"
+		}, {
+			"name": "DATE_UNIT_HOUR",
+			"description": "used in date_str and date_str_loc"
+		}, {
+			"name": "DATE_UNIT_MINUTE",
+			"description": "used in date_str and date_str_loc"
+		}, {
+			"name": "DATE_UNIT_SECOND",
+			"description": "used in date_str and date_str_loc"
+		}, {
+			"name": "DATE_UNIT_MILLISECOND",
+			"description": "used in date_str and date_str_loc"
+		}]
+	}
+}

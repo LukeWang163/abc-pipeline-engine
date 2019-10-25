@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="abc_pipeline_engine.user.dao.UserTokenMapper">
+	<select id="queryByParam" parameterType="map" resultType="map">
+		SELECT * FROM dsw_user_token
+	</select>
+
+	<select id="getUserToken" parameterType="string" resultType="string">
+	SELECT
+	  token
+	FROM
+	  dsw_user_token
+	WHERE
+	  user_id = #{_parameter}
+	</select>
+	
+	<insert id="insert" parameterType="map">
+	INSERT 
+	INTO
+	  dsw_user_token
+	(
+	  user_id,
+	  token
+	) VALUES (
+	  #{userId},
+	  #{token}
+	)
+	</insert>
+	
+	<delete id="remove" parameterType="string">
+	DELETE 
+	FROM 
+	  dsw_user_token 
+	WHERE 
+	  user_id = #{_parameter}
+	</delete>
+	
+	<update id="update" parameterType="map">
+	UPDATE
+	  dsw_user_token
+	SET
+	  token = #{token}  
+	WHERE
+	  user_id = #{userId}
+	</update>
+</mapper>

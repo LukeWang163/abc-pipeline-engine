@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="abc_pipeline_engine.executor.dao.ExecutorMapper">
+  <resultMap id="BaseResultMap" type="abc_pipeline_engine.executor.data.Executor">
+    <id column="EXECUTOR_ID" jdbcType="INTEGER" property="EXECUTOR_ID" />
+    <result column="EXECUTOR_IP" jdbcType="VARCHAR" property="EXECUTOR_IP" />
+    <result column="EXECUTOR_PORT" jdbcType="VARCHAR" property="EXECUTOR_PORT" />
+    <result column="IS_ACTIVE" jdbcType="CHAR" property="IS_ACTIVE" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    EXECUTOR_ID, EXECUTOR_IP, EXECUTOR_PORT, IS_ACTIVE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ABC_EXECUTOR
+    where EXECUTOR_ID = #{EXECUTOR_ID,jdbcType=INTEGER}
+  </select>
+  <select id="selectByExecuteIP" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ABC_EXECUTOR
+    where EXECUTOR_IP = #{EXECUTOR_IP,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ABC_EXECUTOR
+    where EXECUTOR_ID = #{EXECUTOR_ID,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="abc_pipeline_engine.executor.data.Executor">
+    insert into ABC_EXECUTOR (EXECUTOR_IP, EXECUTOR_PORT,
+      IS_ACTIVE)
+    values (#{EXECUTOR_IP,jdbcType=VARCHAR}, #{EXECUTOR_PORT,jdbcType=VARCHAR},
+      #{IS_ACTIVE,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="abc_pipeline_engine.executor.data.Executor">
+    insert into ABC_EXECUTOR
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="EXECUTOR_ID != null">
+        EXECUTOR_ID,
+      </if>
+      <if test="EXECUTOR_IP != null">
+        EXECUTOR_IP,
+      </if>
+      <if test="EXECUTOR_PORT != null">
+        EXECUTOR_PORT,
+      </if>
+      <if test="IS_ACTIVE != null">
+        IS_ACTIVE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="EXECUTOR_ID != null">
+        #{EXECUTOR_ID,jdbcType=INTEGER},
+      </if>
+      <if test="EXECUTOR_IP != null">
+        #{EXECUTOR_IP,jdbcType=VARCHAR},
+      </if>
+      <if test="EXECUTOR_PORT != null">
+        #{EXECUTOR_PORT,jdbcType=VARCHAR},
+      </if>
+      <if test="IS_ACTIVE != null">
+        #{IS_ACTIVE,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="abc_pipeline_engine.executor.data.Executor">
+    update ABC_EXECUTOR
+    <set>
+      <if test="EXECUTOR_IP != null">
+        EXECUTOR_IP = #{EXECUTOR_IP,jdbcType=VARCHAR},
+      </if>
+      <if test="EXECUTOR_PORT != null">
+        EXECUTOR_PORT = #{EXECUTOR_PORT,jdbcType=VARCHAR},
+      </if>
+      <if test="IS_ACTIVE != null">
+        IS_ACTIVE = #{IS_ACTIVE,jdbcType=CHAR},
+      </if>
+    </set>
+    where EXECUTOR_ID = #{EXECUTOR_ID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="abc_pipeline_engine.executor.data.Executor">
+    update ABC_EXECUTOR
+    set EXECUTOR_IP = #{EXECUTOR_IP,jdbcType=VARCHAR},
+      EXECUTOR_PORT = #{EXECUTOR_PORT,jdbcType=VARCHAR},
+      IS_ACTIVE = #{IS_ACTIVE,jdbcType=CHAR}
+    where EXECUTOR_ID = #{EXECUTOR_ID,jdbcType=INTEGER}
+  </update>
+</mapper>

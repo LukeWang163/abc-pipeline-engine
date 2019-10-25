@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="abc_pipeline_engine.experiment.dao.ExperimentMapper">
+	<resultMap type="abc_pipeline_engine.experiment.data.Experiment" id="expMap">
+		<id property="id" column="exp_id" />
+		<result property="name" column="exp_name" />
+		<result property="description" column="exp_desc" />
+		<result property="type" column="exp_type" />
+		<result property="path" column="exp_storage_path" />
+		<result property="status" column="exp_status" />
+		<result property="graph" column="exp_graph" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time"/>
+		<result property="userId" column="user_id" />
+	</resultMap>
+	
+	<select id="getOne" parameterType="string" resultMap="expMap">
+	SELECT
+	  exp_id,
+	  user_id,
+	  exp_name,
+	  exp_desc,
+	  exp_status,
+	  exp_type,
+	  exp_graph,
+	  exp_storage_path,
+	  create_time,
+	  update_time
+	FROM
+	  dsw_experiment
+	WHERE
+	  exp_id = #{_parameter}
+	</select>
+	
+	<select id="queryByParam" parameterType="map" resultMap="expMap">
+	SELECT
+	  exp_id,
+	  user_id,
+	  exp_name,
+	  exp_desc,
+	  exp_status,
+	  exp_type,
+	  exp_graph,
+	  exp_storage_path,
+	  create_time,
+	  update_time
+	FROM
+	  dsw_experiment
+	<where>
+	    <if test="userId != null and userId !='' ">
+	    AND user_id = #{userId}
+	    </if>
+	    <if test="type != null and type !='' ">
+	    AND exp_type = #{type}
+	    </if>
+	    <if test="status != null and status !='' ">
+	    AND exp_status = #{status}
+	    </if>
+	   <if test="name != null and name !='' ">
+	      <bind name="namePattern" value="'%' + name + '%'" />
+	      AND exp_name LIKE #{namePattern}
+	    </if>	   
+	 </where>
+	 <choose>
+	    <when test="orderfield != null and orderfield != ''">
+	    ORDER BY ${orderfield} 
+	      <choose>
+	        <when test="orderdir != null and order != ''">
+	        ${orderdir}
+	        </when>
+	        <otherwise>DESC</otherwise>
+	      </choose>
+	    </when>
+	    <otherwise>
+	    ORDER BY create_time DESC
+	    </otherwise>
+	  </choose>
+	</select>
+	
+	
+	<insert id="add" parameterType="abc_pipeline_engine.experiment.data.Experiment">
+	INSERT 
+	INTO
+	  dsw_experiment
+	(
+	  exp_id,
+	  user_id,
+	  exp_name,
+	  exp_desc,
+	  exp_status,
+	  exp_type,
+	  exp_graph,
+	  exp_storage_path,
+	  create_time,
+	  update_time
+	) VALUES (
+	  #{id},
+	  #{userId},
+	  #{name},
+	  #{description},
+	  #{status},
+	  #{type},
+	  #{graph},
+	  #{path},
+	  #{createTime},
+	  #{updateTime}
+	)
+	</insert>
+	
+	<delete id="remove" parameterType="string">
+	DELETE 
+	FROM 
+	  dsw_experiment 
+	WHERE 
+	  exp_id = #{_parameter}
+	</delete>
+	
+	<update id="update" parameterType="abc_pipeline_engine.experiment.data.Experiment">
+	UPDATE
+	  dsw_experiment
+	  <set>
+	    <if test="name != null">
+	    exp_name = #{name},
+	    </if>
+	    <if test="description != null">
+	    exp_desc = #{description},
+	    </if>
+	    <if test="updateTime != null">
+	    update_time = #{updateTime},
+	    </if>
+	   <if test="graph != null">
+	    exp_graph = #{graph},
+	    </if>
+	    <if test="type !=null ">
+	    exp_type=#{type},
+	    </if>
+	    <if test="path !=null ">
+	    exp_storage_path=#{path},
+	    </if>
+	    <if test="status !=null ">
+	    exp_status=#{status},
+	    </if>
+	  </set>
+	  WHERE
+	    exp_id = #{id}
+	</update>
+	
+	<select id="getOneByName" parameterType="map" resultMap="expMap">
+		select *
+		from dsw_experiment
+		<where>
+	    <if test="userId != null and userId !='' ">
+	    AND user_id = #{userId}
+	    </if>
+	    <if test="type != null and type !='' ">
+	    AND exp_type = #{type}
+	    </if>
+	   <if test="name != null and name !='' ">
+	      AND exp_name = #{name}
+	    </if>	   
+	 </where>
+	</select>
+	
+</mapper>

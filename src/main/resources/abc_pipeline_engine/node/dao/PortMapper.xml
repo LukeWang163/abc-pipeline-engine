@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="abc_pipeline_engine.node.dao.PortMapper">
+	<resultMap type="abc_pipeline_engine.node.data.Port" id="portMap">
+		<id property="id" column="id" />
+		<result property="id" column="port_id" />
+		<result property="sequence" column="sequence" />
+		<result property="portName" column="port_name" />
+		<result property="dataType" column="data_type" />
+		<result property="portType" column="port_type" />
+		<result property="description" column="description" />
+		<result property="viewPath" column="view_path" />
+		<result property="viewCols" column="view_cols" />
+		<result property="nodeId" column="node_id" />
+		<result property="expId" column="exp_id" />
+	</resultMap>
+    
+	<select id="getOne" parameterType="string" resultMap="portMap">
+		SELECT
+		port_id,
+		sequence,
+		port_name,
+		data_type,
+		port_type,
+		description,
+		view_path,
+		view_cols,
+		node_id,
+		exp_id
+		FROM
+		dsw_port
+		WHERE
+		port_id = #{_parameter}
+	</select>
+
+	<select id="queryByParam" parameterType="map" resultMap="portMap">
+		SELECT
+		port_id,
+		sequence,
+		port_name,
+		data_type,
+		port_type,
+		description,
+		view_path,
+		view_cols,
+		node_id,
+		exp_id
+		FROM
+		dsw_port
+		<where>
+			<if test="expId != null and expId !='' ">
+				AND exp_id = #{expId}
+			</if>
+			<if test="nodeId != null and nodeId !='' ">
+				AND node_id = #{nodeId}
+			</if>
+			<if test="portType != null and portType !='' ">
+				AND port_type = #{portType}
+			</if>
+			<if test="dataType != null and dataType !='' ">
+				AND data_type = #{dataType}
+			</if>
+			<if test="sequence !=null">
+			AND sequence=#{sequence}
+			</if>
+		</where>
+	</select>
+
+
+	<insert id="add" parameterType="abc_pipeline_engine.node.data.Port">
+		INSERT
+		INTO
+		dsw_port
+		(
+		port_id,
+		sequence,
+		port_name,
+		data_type,
+		port_type,
+		description,
+		view_path,
+		view_cols,
+		node_id,
+		exp_id
+		) VALUES (
+		#{id},
+		#{sequence},
+		#{portName},
+		#{dataType},
+		#{portType},
+		#{description},
+		#{viewPath},
+		#{viewCols},
+		#{nodeId},
+		#{expId}
+		)
+	</insert>
+
+	<update id="update" parameterType="abc_pipeline_engine.node.data.Port">
+		UPDATE
+		dsw_port
+		<set>
+			<if test="viewPath != null">
+				view_path = #{viewPath},
+			</if>
+			<if test="viewCols !=null">
+				view_cols=#{viewCols},
+			</if>
+			<if test="description != null">
+				description = #{description},
+			</if>
+		</set>
+		WHERE
+		port_id = #{id}
+	</update>
+
+	<delete id="remove" parameterType="string">
+		DELETE
+		FROM
+		dsw_port
+		WHERE
+		port_id = #{_parameter}
+	</delete>
+
+	<delete id="removeByExperiment" parameterType="string">
+		DELETE
+		FROM
+		dsw_port
+		WHERE
+		exp_id = #{_parameter}
+	</delete>
+
+	<delete id="removeByNode" parameterType="map">
+		DELETE
+		FROM
+		dsw_port
+		<where>
+			<if test="expId != null and expId !='' ">
+				AND exp_id = #{expId}
+			</if>
+			<if test="nodeId != null and nodeId !='' ">
+				AND node_id = #{nodeId}
+			</if>
+		</where>
+	</delete>
+</mapper>

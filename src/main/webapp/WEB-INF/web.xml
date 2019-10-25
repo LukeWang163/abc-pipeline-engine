@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	id="IDSW" version="3.1">
+		<display-name>IDSW</display-name>
+
+		<context-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>
+				classpath*:/spring/datasource.xml
+				classpath*:/spring/spring-context.xml
+				classpath*:/spring/mybatis-context.xml
+				classpath*:/spring/config/*
+				classpath*:/spring/service/*
+				classpath*:/spring/dao/*
+				classpath*:/spring/data/*
+			</param-value>
+		</context-param>
+		
+		<context-param>
+			<param-name>keycloak.config.resolver</param-name>
+	        <param-value>sdk.security.util.PathBasedKeycloakConfigResolver</param-value>
+    	</context-param>
+		
+		<filter>
+			<filter-name>characterEncodingFilter</filter-name>
+			<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+			<init-param>
+				<param-name>encoding</param-name>
+				<param-value>UTF-8</param-value>
+			</init-param>
+			<init-param>
+				<param-name>forceEncoding</param-name>
+				<param-value>true</param-value>
+			</init-param>
+		</filter>
+
+		<filter>
+			<filter-name>DruidWebStatFilter</filter-name>
+			<filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
+			<init-param>
+				<param-name>exclusions</param-name>
+				<param-value>*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*</param-value>
+			</init-param>
+		</filter>
+
+		<filter>
+			<filter-name>SDKFilter</filter-name>
+			<filter-class>sdk.security.filter.SDKFilter
+			</filter-class>
+			<init-param>
+				<param-name>authzFilter</param-name>
+				<param-value>false</param-value>
+			</init-param>
+			<init-param>
+				<param-name>securityRefererValidator</param-name>
+				<param-value>false</param-value>
+			</init-param>
+		</filter>
+
+		<filter-mapping>
+			<filter-name>characterEncodingFilter</filter-name>
+			<url-pattern>/service/*</url-pattern>
+		</filter-mapping>
+		<filter-mapping>
+			<filter-name>characterEncodingFilter</filter-name>
+			<url-pattern>/v2/*</url-pattern>
+		</filter-mapping>
+		<filter-mapping>
+			<filter-name>characterEncodingFilter</filter-name>
+			<url-pattern>*.jsp</url-pattern>
+		</filter-mapping>
+
+		<filter-mapping>
+			<filter-name>DruidWebStatFilter</filter-name>
+			<url-pattern>/service/*</url-pattern>
+		</filter-mapping>
+		<filter-mapping>
+			<filter-name>DruidWebStatFilter</filter-name>
+			<url-pattern>/v2/*</url-pattern>
+		</filter-mapping>
+		<filter-mapping>
+			<filter-name>DruidWebStatFilter</filter-name>
+			<url-pattern>*.jsp</url-pattern>
+		</filter-mapping>
+
+		<filter-mapping>
+			<filter-name>SDKFilter</filter-name>
+			<url-pattern>/service/*</url-pattern>
+		</filter-mapping>
+		<filter-mapping>
+			<filter-name>SDKFilter</filter-name>
+			<url-pattern>/v2/*</url-pattern>
+		</filter-mapping>
+		<filter-mapping>
+			<filter-name>SDKFilter</filter-name>
+			<url-pattern>*.jsp</url-pattern>
+		</filter-mapping>
+
+
+		<listener>
+			<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+		</listener>
+
+
+		<servlet>
+			<servlet-name>springServlet</servlet-name>
+			<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+			<init-param>
+				<param-name>contextConfigLocation</param-name>
+				<param-value>classpath*:/spring/controller/*</param-value>
+			</init-param>
+			<load-on-startup>1</load-on-startup>
+		</servlet>
+
+		<servlet>
+			<servlet-name>DruidStatView</servlet-name>
+			<servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+		</servlet>
+
+		<servlet>
+			<servlet-name>Statistics</servlet-name>
+			<servlet-class>abc_pipeline_engine.sysinfo.ServerStatisticsServlet</servlet-class>
+		</servlet>
+
+		<servlet-mapping>
+			<servlet-name>Statistics</servlet-name>
+			<url-pattern>/statistics/*</url-pattern>
+		</servlet-mapping>
+
+		<servlet-mapping>
+			<servlet-name>springServlet</servlet-name>
+			<url-pattern>/service/*</url-pattern>
+		</servlet-mapping>
+		<servlet-mapping>
+			<servlet-name>springServlet</servlet-name>
+			<url-pattern>/v2/*</url-pattern>
+		</servlet-mapping>
+	    <servlet-mapping>
+			<servlet-name>DruidStatView</servlet-name>
+			<url-pattern>/druid/*</url-pattern>
+		</servlet-mapping>
+
+
+	<mime-mapping>
+			<extension>xml</extension>
+			<mime-type>text/xml</mime-type>
+		</mime-mapping>
+
+		<welcome-file-list>
+			<welcome-file>/jsp/public/index.jsp</welcome-file>
+		</welcome-file-list>
+
+		<error-page>
+			<error-code>404</error-code>
+			<location>/jsp/public/404.jsp</location>
+		</error-page>
+
+		<error-page>
+			<error-code>500</error-code>
+			<location>/jsp/public/500.jsp</location>
+		</error-page>
+
+	    <jsp-config>
+		    <taglib>
+				<taglib-uri>/tags/loushang-web</taglib-uri>
+				<taglib-location>/WEB-INF/tld/loushang-web.tld</taglib-location>
+			</taglib>
+	    </jsp-config>
+		
+		<security-constraint>
+			<web-resource-collection>
+				<web-resource-name>All Resources</web-resource-name>
+				<url-pattern>/service/*</url-pattern>
+				<url-pattern>/v2/*</url-pattern>
+				<url-pattern>*.jsp</url-pattern>
+			</web-resource-collection>
+			<auth-constraint>
+				<role-name>*</role-name>
+			</auth-constraint>
+		</security-constraint>
+		<security-constraint>
+			<web-resource-collection>
+				<web-resource-name>Exclude Resources</web-resource-name>
+				<url-pattern>/prediction</url-pattern>
+				<url-pattern>/jsp/public/signin.jsp</url-pattern>
+				<url-pattern>/service/api/*</url-pattern>
+				<url-pattern>/service/user/realm/*</url-pattern>
+			</web-resource-collection>
+		</security-constraint>
+
+		<login-config>
+			<auth-method>KEYCLOAK</auth-method>
+			<realm-name>indata</realm-name>
+		</login-config>
+
+		<security-role>
+			<role-name>*</role-name>
+		</security-role>
+	</web-app>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="abc_pipeline_engine.execution.dao.ExecutionMapper">
+  <resultMap id="BaseResultMap" type="abc_pipeline_engine.execution.data.Execution">
+    <id column="ID" jdbcType="INTEGER" property="ID" />
+    <result column="PIPELINE_ID" jdbcType="VARCHAR" property="PIPELINE_ID" />
+    <result column="EXECUTOR_ID" jdbcType="INTEGER" property="EXECUTOR_ID" />
+    <result column="PIPELINE_STATUS" jdbcType="CHAR" property="PIPELINE_STATUS" />
+    <result column="CREATE_TIME" jdbcType="VARCHAR" property="CREATE_TIME" />
+    <result column="UPDATE_TIME" jdbcType="VARCHAR" property="UPDATE_TIME" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, PIPELINE_ID, EXECUTOR_ID, PIPELINE_STATUS, CREATE_TIME, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ABC_EXECUTE_REC
+    where ID = #{ID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ABC_EXECUTE_REC
+    where ID = #{ID,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="abc_pipeline_engine.execution.data.Execution">
+    insert into ABC_EXECUTE_REC (ID, PIPELINE_ID, EXECUTOR_ID, 
+      PIPELINE_STATUS, CREATE_TIME, UPDATE_TIME
+      )
+    values (#{ID,jdbcType=INTEGER}, #{PIPELINE_ID,jdbcType=VARCHAR}, #{EXECUTOR_ID,jdbcType=INTEGER}, 
+      #{PIPELINE_STATUS,jdbcType=CHAR}, #{CREATE_TIME,jdbcType=VARCHAR}, #{UPDATE_TIME,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="abc_pipeline_engine.execution.data.Execution">
+    insert into ABC_EXECUTE_REC
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ID != null">
+        ID,
+      </if>
+      <if test="PIPELINE_ID != null">
+        PIPELINE_ID,
+      </if>
+      <if test="EXECUTOR_ID != null">
+        EXECUTOR_ID,
+      </if>
+      <if test="PIPELINE_STATUS != null">
+        PIPELINE_STATUS,
+      </if>
+      <if test="CREATE_TIME != null">
+        CREATE_TIME,
+      </if>
+      <if test="UPDATE_TIME != null">
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ID != null">
+        #{ID,jdbcType=INTEGER},
+      </if>
+      <if test="PIPELINE_ID != null">
+        #{PIPELINE_ID,jdbcType=VARCHAR},
+      </if>
+      <if test="EXECUTOR_ID != null">
+        #{EXECUTOR_ID,jdbcType=INTEGER},
+      </if>
+      <if test="PIPELINE_STATUS != null">
+        #{PIPELINE_STATUS,jdbcType=CHAR},
+      </if>
+      <if test="CREATE_TIME != null">
+        #{CREATE_TIME,jdbcType=VARCHAR},
+      </if>
+      <if test="UPDATE_TIME != null">
+        #{UPDATE_TIME,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="abc_pipeline_engine.execution.data.Execution">
+    update ABC_EXECUTE_REC
+    <set>
+      <if test="PIPELINE_ID != null">
+        PIPELINE_ID = #{PIPELINE_ID,jdbcType=VARCHAR},
+      </if>
+      <if test="EXECUTOR_ID != null">
+        EXECUTOR_ID = #{EXECUTOR_ID,jdbcType=INTEGER},
+      </if>
+      <if test="PIPELINE_STATUS != null">
+        PIPELINE_STATUS = #{PIPELINE_STATUS,jdbcType=CHAR},
+      </if>
+      <if test="CREATE_TIME != null">
+        CREATE_TIME = #{CREATE_TIME,jdbcType=VARCHAR},
+      </if>
+      <if test="UPDATE_TIME != null">
+        UPDATE_TIME = #{UPDATE_TIME,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{ID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="abc_pipeline_engine.execution.data.Execution">
+    update ABC_EXECUTE_REC
+    set PIPELINE_ID = #{PIPELINE_ID,jdbcType=VARCHAR},
+      EXECUTOR_ID = #{EXECUTOR_ID,jdbcType=INTEGER},
+      PIPELINE_STATUS = #{PIPELINE_STATUS,jdbcType=CHAR},
+      CREATE_TIME = #{CREATE_TIME,jdbcType=VARCHAR},
+      UPDATE_TIME = #{UPDATE_TIME,jdbcType=VARCHAR}
+    where ID = #{ID,jdbcType=INTEGER}
+  </update>
+</mapper>
