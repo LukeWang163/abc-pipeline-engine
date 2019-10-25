@@ -18,10 +18,10 @@
 			</param-value>
 		</context-param>
 		
-		<context-param>
-			<param-name>keycloak.config.resolver</param-name>
-	        <param-value>sdk.security.util.PathBasedKeycloakConfigResolver</param-value>
-    	</context-param>
+<!--		<context-param>-->
+<!--			<param-name>keycloak.config.resolver</param-name>-->
+<!--	        <param-value>sdk.security.util.PathBasedKeycloakConfigResolver</param-value>-->
+<!--    	</context-param>-->
 		
 		<filter>
 			<filter-name>characterEncodingFilter</filter-name>
@@ -45,19 +45,19 @@
 			</init-param>
 		</filter>
 
-		<filter>
-			<filter-name>SDKFilter</filter-name>
-			<filter-class>sdk.security.filter.SDKFilter
-			</filter-class>
-			<init-param>
-				<param-name>authzFilter</param-name>
-				<param-value>false</param-value>
-			</init-param>
-			<init-param>
-				<param-name>securityRefererValidator</param-name>
-				<param-value>false</param-value>
-			</init-param>
-		</filter>
+<!--		<filter>-->
+<!--			<filter-name>SDKFilter</filter-name>-->
+<!--			<filter-class>sdk.security.filter.SDKFilter-->
+<!--			</filter-class>-->
+<!--			<init-param>-->
+<!--				<param-name>authzFilter</param-name>-->
+<!--				<param-value>false</param-value>-->
+<!--			</init-param>-->
+<!--			<init-param>-->
+<!--				<param-name>securityRefererValidator</param-name>-->
+<!--				<param-value>false</param-value>-->
+<!--			</init-param>-->
+<!--		</filter>-->
 
 		<filter-mapping>
 			<filter-name>characterEncodingFilter</filter-name>
@@ -85,18 +85,18 @@
 			<url-pattern>*.jsp</url-pattern>
 		</filter-mapping>
 
-		<filter-mapping>
-			<filter-name>SDKFilter</filter-name>
-			<url-pattern>/service/*</url-pattern>
-		</filter-mapping>
-		<filter-mapping>
-			<filter-name>SDKFilter</filter-name>
-			<url-pattern>/v2/*</url-pattern>
-		</filter-mapping>
-		<filter-mapping>
-			<filter-name>SDKFilter</filter-name>
-			<url-pattern>*.jsp</url-pattern>
-		</filter-mapping>
+<!--		<filter-mapping>-->
+<!--			<filter-name>SDKFilter</filter-name>-->
+<!--			<url-pattern>/service/*</url-pattern>-->
+<!--		</filter-mapping>-->
+<!--		<filter-mapping>-->
+<!--			<filter-name>SDKFilter</filter-name>-->
+<!--			<url-pattern>/v2/*</url-pattern>-->
+<!--		</filter-mapping>-->
+<!--		<filter-mapping>-->
+<!--			<filter-name>SDKFilter</filter-name>-->
+<!--			<url-pattern>*.jsp</url-pattern>-->
+<!--		</filter-mapping>-->
 
 
 		<listener>
@@ -126,17 +126,17 @@
 
 		<servlet-mapping>
 			<servlet-name>Statistics</servlet-name>
-			<url-pattern>/statistics/*</url-pattern>
+			<url-pattern>/statistics</url-pattern>
 		</servlet-mapping>
 
 		<servlet-mapping>
 			<servlet-name>springServlet</servlet-name>
 			<url-pattern>/service/*</url-pattern>
 		</servlet-mapping>
-		<servlet-mapping>
-			<servlet-name>springServlet</servlet-name>
-			<url-pattern>/v2/*</url-pattern>
-		</servlet-mapping>
+<!--		<servlet-mapping>-->
+<!--			<servlet-name>springServlet</servlet-name>-->
+<!--			<url-pattern>/v2/*</url-pattern>-->
+<!--		</servlet-mapping>-->
 	    <servlet-mapping>
 			<servlet-name>DruidStatView</servlet-name>
 			<url-pattern>/druid/*</url-pattern>
@@ -169,33 +169,33 @@
 			</taglib>
 	    </jsp-config>
 		
-		<security-constraint>
-			<web-resource-collection>
-				<web-resource-name>All Resources</web-resource-name>
-				<url-pattern>/service/*</url-pattern>
-				<url-pattern>/v2/*</url-pattern>
-				<url-pattern>*.jsp</url-pattern>
-			</web-resource-collection>
-			<auth-constraint>
-				<role-name>*</role-name>
-			</auth-constraint>
-		</security-constraint>
-		<security-constraint>
-			<web-resource-collection>
-				<web-resource-name>Exclude Resources</web-resource-name>
-				<url-pattern>/prediction</url-pattern>
-				<url-pattern>/jsp/public/signin.jsp</url-pattern>
-				<url-pattern>/service/api/*</url-pattern>
-				<url-pattern>/service/user/realm/*</url-pattern>
-			</web-resource-collection>
-		</security-constraint>
+<!--		<security-constraint>-->
+<!--			<web-resource-collection>-->
+<!--				<web-resource-name>All Resources</web-resource-name>-->
+<!--				<url-pattern>/service/*</url-pattern>-->
+<!--				<url-pattern>/v2/*</url-pattern>-->
+<!--				<url-pattern>*.jsp</url-pattern>-->
+<!--			</web-resource-collection>-->
+<!--			<auth-constraint>-->
+<!--				<role-name>*</role-name>-->
+<!--			</auth-constraint>-->
+<!--		</security-constraint>-->
+<!--		<security-constraint>-->
+<!--			<web-resource-collection>-->
+<!--				<web-resource-name>Exclude Resources</web-resource-name>-->
+<!--				<url-pattern>/prediction</url-pattern>-->
+<!--				<url-pattern>/jsp/public/signin.jsp</url-pattern>-->
+<!--				<url-pattern>/service/api/*</url-pattern>-->
+<!--				<url-pattern>/service/user/realm/*</url-pattern>-->
+<!--			</web-resource-collection>-->
+<!--		</security-constraint>-->
 
-		<login-config>
-			<auth-method>KEYCLOAK</auth-method>
-			<realm-name>indata</realm-name>
-		</login-config>
+<!--		<login-config>-->
+<!--			<auth-method>KEYCLOAK</auth-method>-->
+<!--			<realm-name>indata</realm-name>-->
+<!--		</login-config>-->
 
-		<security-role>
-			<role-name>*</role-name>
-		</security-role>
+<!--		<security-role>-->
+<!--			<role-name>*</role-name>-->
+<!--		</security-role>-->
 	</web-app>

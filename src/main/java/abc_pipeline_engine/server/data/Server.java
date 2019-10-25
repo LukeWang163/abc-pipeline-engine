@@ -1,6 +1,6 @@
-package abc_pipeline_engine.executor.data;
+package abc_pipeline_engine.server.data;
 
-public class Executor {
+public class Server {
     /**
      * 执行节点id
      */

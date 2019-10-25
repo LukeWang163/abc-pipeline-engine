@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="abc_pipeline_engine.executor.dao.ExecutorMapper">
-  <resultMap id="BaseResultMap" type="abc_pipeline_engine.executor.data.Executor">
+<mapper namespace="abc_pipeline_engine.server.dao.ServerMapper">
+  <resultMap id="BaseResultMap" type="abc_pipeline_engine.server.data.Server">
     <id column="EXECUTOR_ID" jdbcType="INTEGER" property="EXECUTOR_ID" />
     <result column="EXECUTOR_IP" jdbcType="VARCHAR" property="EXECUTOR_IP" />
     <result column="EXECUTOR_PORT" jdbcType="VARCHAR" property="EXECUTOR_PORT" />
@@ -26,13 +26,13 @@
     delete from ABC_EXECUTOR
     where EXECUTOR_ID = #{EXECUTOR_ID,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="abc_pipeline_engine.executor.data.Executor">
+  <insert id="insert" parameterType="abc_pipeline_engine.server.data.Server">
     insert into ABC_EXECUTOR (EXECUTOR_IP, EXECUTOR_PORT,
       IS_ACTIVE)
     values (#{EXECUTOR_IP,jdbcType=VARCHAR}, #{EXECUTOR_PORT,jdbcType=VARCHAR},
       #{IS_ACTIVE,jdbcType=CHAR})
   </insert>
-  <insert id="insertSelective" parameterType="abc_pipeline_engine.executor.data.Executor">
+  <insert id="insertSelective" parameterType="abc_pipeline_engine.server.data.Server">
     insert into ABC_EXECUTOR
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="EXECUTOR_ID != null">
@@ -63,7 +63,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="abc_pipeline_engine.executor.data.Executor">
+  <update id="updateByPrimaryKeySelective" parameterType="abc_pipeline_engine.server.data.Server">
     update ABC_EXECUTOR
     <set>
       <if test="EXECUTOR_IP != null">
@@ -78,7 +78,7 @@
     </set>
     where EXECUTOR_ID = #{EXECUTOR_ID,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="abc_pipeline_engine.executor.data.Executor">
+  <update id="updateByPrimaryKey" parameterType="abc_pipeline_engine.server.data.Server">
     update ABC_EXECUTOR
     set EXECUTOR_IP = #{EXECUTOR_IP,jdbcType=VARCHAR},
       EXECUTOR_PORT = #{EXECUTOR_PORT,jdbcType=VARCHAR},

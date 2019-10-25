@@ -1,6 +1,5 @@
 package abc_pipeline_engine.execution.utils;
 
-import abc_pipeline_engine.user.api.IUserInfoService;
 import abc_pipeline_engine.utils.ExperimentConfigUtil;
 import abc_pipeline_engine.utils.forRP.HDFSUtil;
 import base.operators.Process;
@@ -19,7 +18,6 @@ public class ProcessUtil {
 	public static ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
 	
 	static Map<String, ProcessThread> map = new ConcurrentHashMap<>();
-	private static IUserInfoService userInfoService;
 	
 	/**
 	 * @param xmlPath
@@ -31,8 +29,10 @@ public class ProcessUtil {
 		String libpath = ExperimentConfigUtil.getString("operators.libpath");
 		
 		// 下载依赖的jar包到本地
-		userInfoService = SpringContextHolder.getBean(IUserInfoService.class);
-		String userId = userInfoService.getLoginUserId();
+//		userInfoService = SpringContextHolder.getBean(IUserInfoService.class);
+//		String userId = userInfoService.getLoginUserId();
+		// TODO: get userId from ABC_PIPELINE
+		String userId = "";
 		String jarLocalPath = processTmp + "/" + userId; 
 		PluginUtil.init(libpath,jarLocalPath);
 		
@@ -82,10 +82,12 @@ public class ProcessUtil {
 		String libpath = ExperimentConfigUtil.getString("operators.libpath");
 
 		// 下载依赖的jar包到本地
-		userInfoService = SpringContextHolder.getBean(IUserInfoService.class);
-		String userId = userInfoService.getLoginUserId();
+//		userInfoService = SpringContextHolder.getBean(IUserInfoService.class);
+//		String userId = userInfoService.getLoginUserId();
+		// TODO: get userId from ABC_PIPELINE
+		String userId = "";
 		String jarLocalPath = processTmp + "/" + userId;
-		PluginUtil.init(libpath,jarLocalPath);
+		PluginUtil.init(libpath, jarLocalPath);
 
 		//生成进程类
 		Process processTest;

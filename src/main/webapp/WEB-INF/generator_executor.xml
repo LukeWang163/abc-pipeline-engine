@@ -14,7 +14,7 @@
                         connectionURL="jdbc:mysql://10.111.25.140:3306/idsw-portal-new" userId="root"
                         password="Analysis?!3"/>
         <!-- 实体类的地址 targetProject + targetPackage == 生成文件所在位置  根据表结构生成的实体类就在项目的com.common.model中-->
-        <javaModelGenerator targetPackage="abc_pipeline_engine.executor.data"
+        <javaModelGenerator targetPackage="abc_pipeline_engine.server.data"
                             targetProject="E:\github\abc-pipeline-engine\src\main\java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
@@ -25,7 +25,7 @@
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
         <!-- dao生成的存放地址 targetProject + targetPackage == 生成文件所在位置  生成的dao接口就在项目的com.dao中-->
-        <javaClientGenerator targetPackage="abc_pipeline_engine.executor.dao"
+        <javaClientGenerator targetPackage="abc_pipeline_engine.server.dao"
                              targetProject="E:\github\abc-pipeline-engine\src\main\java" type="XMLMAPPER">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>

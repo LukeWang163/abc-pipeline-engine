@@ -1,7 +1,7 @@
 package abc_pipeline_engine.sysinfo;
 
 /**
- * Class that exposes the statistics from the executor server. List of the statistics -
+ * Class that exposes the statistics from the server server. List of the statistics -
  * remainingMemoryPercent; remainingMemory; remainingFlowCapacity; numberOfAssignedFlows;
  * lastDispatchedTime; cpuUsage;
  */

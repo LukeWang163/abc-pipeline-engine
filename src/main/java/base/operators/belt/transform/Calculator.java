@@ -10,7 +10,7 @@ package base.operators.belt.transform;
 interface Calculator<T> {
 
 	/**
-	 * Initializes the transform. This is called once by the executor before {@link #doPart(int, int, int)} is called.
+	 * Initializes the transform. This is called once by the server before {@link #doPart(int, int, int)} is called.
 	 *
 	 * @param numberOfBatches
 	 * 		the number of times {@link #doPart(int, int, int)} will be called.
@@ -23,7 +23,7 @@ interface Calculator<T> {
 	int getNumberOfOperations();
 
 	/**
-	 * Does a part of the calculation. This method is called one or more times by the executor and every index
+	 * Does a part of the calculation. This method is called one or more times by the server and every index
 	 * between 0
 	 * and {@link #getNumberOfOperations()} is part of exactly one interval {@code [from,to)}.
 	 *
@@ -37,7 +37,7 @@ interface Calculator<T> {
 	void doPart(int from, int to, int batchIndex);
 
 	/**
-	 * Returns the result. Is called from the executor once after all calls to {@link #doPart(int, int, int)} are
+	 * Returns the result. Is called from the server once after all calls to {@link #doPart(int, int, int)} are
 	 * finished.
 	 *
 	 * @return the result

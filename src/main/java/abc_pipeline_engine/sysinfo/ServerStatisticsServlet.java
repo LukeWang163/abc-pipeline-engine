@@ -29,6 +29,11 @@ public class ServerStatisticsServlet extends HttpServlet {
     protected static long lastRefreshedTime = 0;
     protected static ExecutorInfo cachedstats = null;
 
+    @Deprecated
+    @Override
+    protected void doGet(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
+        doPost(req, resp);
+    }
     /**
      * Handle all requests to Statistics Servlet {@inheritDoc}
      */
@@ -36,12 +41,12 @@ public class ServerStatisticsServlet extends HttpServlet {
     protected void doPost(final HttpServletRequest req, final HttpServletResponse resp)
             throws ServletException, IOException {
 
-        final boolean noCache = null != req && Boolean.valueOf(req.getParameter(noCacheParamName));
+//        final boolean noCache = null != req && Boolean.valueOf(req.getParameter(noCacheParamName));
 
-        if (noCache || System.currentTimeMillis() - lastRefreshedTime > cacheTimeInMilliseconds) {
-            this.populateStatistics(noCache);
-        }
-
+//        if (noCache || System.currentTimeMillis() - lastRefreshedTime > cacheTimeInMilliseconds) {
+//            this.populateStatistics(noCache);
+//        }
+        this.populateStatistics(true);
         AzJsonUtils.toJSON(cachedstats, resp.getOutputStream(), true);
     }
 

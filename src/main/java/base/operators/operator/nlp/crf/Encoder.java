@@ -289,7 +289,7 @@ public class Encoder
         catch (Exception e)
         {
             e.printStackTrace();
-            System.err.println("fail waiting executor to shutdown");
+            System.err.println("fail waiting server to shutdown");
         }
         return true;
     }

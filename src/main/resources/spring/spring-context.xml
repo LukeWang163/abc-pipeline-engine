@@ -63,6 +63,6 @@
     </bean>
 
 	<!-- 启动时向 表插入记录 -->
-	<bean class="abc_pipeline_engine.executor.listener.InitExecutor"></bean>
+	<bean class="abc_pipeline_engine.server.listener.InitServer"></bean>
 
 </beans>
