@@ -155,7 +155,7 @@ public class UnzipOperator extends Operator {
         attributeList.add(path_attribute);
         Attribute parent_path_attribute = AttributeFactory.createAttribute("parent_path", Ontology.STRING);
         attributeList.add(parent_path_attribute);
-        Attribute size_attribute = AttributeFactory.createAttribute("size", Ontology.NUMERICAL);
+        Attribute size_attribute = AttributeFactory.createAttribute("size(byte)", Ontology.NUMERICAL);
         attributeList.add(size_attribute);
         Attribute modify_attribute = AttributeFactory.createAttribute("last_modify_time", Ontology.DATE_TIME);
         attributeList.add(modify_attribute);
@@ -209,14 +209,14 @@ public class UnzipOperator extends Operator {
                     if(wildcard!=null && !"".equals(wildcard)){
                         patternInclude = Pattern.compile( wildcard );
                         if(patternInclude!=null){
-                            Matcher matcher = patternInclude.matcher( entryName );
+                            Matcher matcher = patternInclude.matcher( entryName.substring(entryName.lastIndexOf(pathSeparator)+1) );
                             getIt = matcher.matches();
                         }
                     }
                     if(wildcardexclude!=null && !"".equals(wildcardexclude)){
                         patternExclude = Pattern.compile( wildcardexclude );
                         if(patternExclude!=null){
-                            Matcher matcher = patternExclude.matcher( entryName );
+                            Matcher matcher = patternExclude.matcher( entryName.substring(entryName.lastIndexOf(pathSeparator)+1) );
                             getItexclude = matcher.matches();
                         }
                     }
@@ -270,10 +270,10 @@ public class UnzipOperator extends Operator {
                         dataRow.set(id_attribute, id);
                         id++;
                         dataRow.set(path_attribute, path_attribute.getMapping().mapString(targetdirectory + targetFileName));
-                        dataRow.set(parent_path_attribute, parent_path_attribute.getMapping().mapString((targetdirectory + targetFileName).substring(0, (targetdirectory + targetFileName).lastIndexOf(pathSeparator))));
+                        dataRow.set(parent_path_attribute, parent_path_attribute.getMapping().mapString((targetdirectory + targetFileName).substring(0, (targetdirectory + targetFileName).lastIndexOf(pathSeparator)+1)));
                         dataRow.set(size_attribute, unpackfile.length());
                         dataRow.set(modify_attribute, unpackfile.lastModified());
-                        dataRow.set(type_attribute, type_attribute.getMapping().mapString(zipEntry.getName().substring(zipEntry.getName().lastIndexOf( '.' )+1)));
+                        dataRow.set(type_attribute, type_attribute.getMapping().mapString(zipEntry.getName().lastIndexOf( '.' )==-1?"unknow":zipEntry.getName().substring(zipEntry.getName().lastIndexOf( '.' )+1)));
                         exampleTable.addDataRow(dataRow);
                     }
                 }
@@ -460,8 +460,8 @@ public class UnzipOperator extends Operator {
 
         types.add(new ParameterTypeBoolean(USE_ZIP_FILE_AS_ROOT_DIRECTIORY,"Use compressed file names as root directory names.",false,false));
         //types.add(new ParameterTypeBoolean(CREATE_FOLDER,"Whether to create folder.",false,false));
-        types.add(new ParameterTypeRegexp(WILDCARD_INCLUDE, "Wildcard include.",true, false));
-        types.add(new ParameterTypeRegexp(WILDCARD_EXCLUDE, "Wildcard exclude.",true, false));
+        types.add(new ParameterTypeRegexp(WILDCARD_INCLUDE, "Wildcard include of file name.",true, false));
+        types.add(new ParameterTypeRegexp(WILDCARD_EXCLUDE, "Wildcard exclude of file name.",true, false));
 
         types.add(new ParameterTypeCategory(SET_DATE_TIME_FORMAT,"Whether to set the format of date and time.", date_time_mode,0, false));
         ParameterType type = new ParameterTypeCategory(DATE_TIME_FORMAT,"The format of date and time.", dateTimeFormat,0, false);
