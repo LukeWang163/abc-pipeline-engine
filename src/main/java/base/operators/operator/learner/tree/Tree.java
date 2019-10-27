@@ -19,15 +19,12 @@
 package base.operators.operator.learner.tree;
 
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.text.DecimalFormat;
+import java.util.*;
 
 import base.operators.example.ExampleSet;
 import base.operators.tools.Tools;
+import com.alibaba.fastjson.JSONObject;
 
 
 /**
@@ -187,29 +184,86 @@ public class Tree implements Serializable {
 		return children.size();
 	}
 
+	public String getChildrenAttributeName() {
+		if (getNumberOfChildren() > 1) {
+			return children.get(0).getCondition().getAttributeName();
+		} else {
+			return "";
+		}
+	}
+//	@Override
+//	public String toString() {
+//		StringBuilder buffer = new StringBuilder();
+//		toString(null, this, "", buffer);
+//		return buffer.toString();
+//	}
+
+//	private void toString(SplitCondition condition, Tree tree, String indent, StringBuilder buffer) {
+//		if (condition != null) {
+//			buffer.append(condition.toString());
+//		}
+//		if (!tree.isLeaf()) {
+//			Iterator<Edge> childIterator = tree.childIterator();
+//			while (childIterator.hasNext()) {
+//				buffer.append(Tools.getLineSeparator());
+//				buffer.append(indent);
+//				Edge edge = childIterator.next();
+//				toString(edge.getCondition(), edge.getChild(), indent + "|   ", buffer);
+//			}
+//		} else {
+//			buffer.append(": ");
+//			buffer.append(tree.getLabel());
+//			buffer.append(" " + tree.counterMap.toString());
+//		}
+//	}
+
 	@Override
 	public String toString() {
-		StringBuilder buffer = new StringBuilder();
-		toString(null, this, "", buffer);
-		return buffer.toString();
+		Map<String, Object> treeMap = new LinkedHashMap<>();
+		if (!this.isLeaf()) {
+			treeMap.put("name", this.getChildrenAttributeName());
+			treeMap.put("rule", "null");
+			treeMap.put("children", getChildren(this));
+		}
+		JSONObject jsonObject = new JSONObject(treeMap);
+		return jsonObject.toString();
 	}
 
-	private void toString(SplitCondition condition, Tree tree, String indent, StringBuilder buffer) {
-		if (condition != null) {
-			buffer.append(condition.toString());
-		}
+	private LinkedList<LinkedHashMap<String, Object>> getChildren(Tree tree) {
+		LinkedList<LinkedHashMap<String, Object>> childrenList = new LinkedList<>();
 		if (!tree.isLeaf()) {
 			Iterator<Edge> childIterator = tree.childIterator();
 			while (childIterator.hasNext()) {
-				buffer.append(Tools.getLineSeparator());
-				buffer.append(indent);
-				Edge edge = childIterator.next();
-				toString(edge.getCondition(), edge.getChild(), indent + "|   ", buffer);
+				Edge child = childIterator.next();
+				childrenList.add(getChildMap(child));
 			}
-		} else {
-			buffer.append(": ");
-			buffer.append(tree.getLabel());
-			buffer.append(" " + tree.counterMap.toString());
 		}
+		return childrenList;
+	}
+
+	private LinkedHashMap<String, Object> getChildMap(Edge edge) {
+		LinkedHashMap<String, Object> childMap = new LinkedHashMap<>();
+		Tree child = edge.getChild();
+		SplitCondition condition = edge.getCondition();
+		if (!child.isLeaf()) {
+			childMap.put("name", child.getChildrenAttributeName());
+			childMap.put("rule", condition.getRelation() + condition.getValueString());
+			childMap.put("children", getChildren(child));
+		} else {
+			StringBuilder sb = new StringBuilder();
+			String leafLabel = child.getLabel();
+			sb.append(leafLabel);
+			sb.append("(");
+			int labelCount = child.counterMap.get(leafLabel);
+			sb.append(labelCount);
+			sb.append("/");
+			int sampleCount = child.counterMap.values().stream().mapToInt(Integer::intValue).sum();
+			DecimalFormat percentFormat = new DecimalFormat("0.00%");
+			sb.append(percentFormat.format((double)labelCount/(double)sampleCount));
+			sb.append(")");
+			childMap.put("name", sb.toString());
+			childMap.put("rule", condition.getRelation() + condition.getValueString());
+		}
+		return childMap;
 	}
 }
